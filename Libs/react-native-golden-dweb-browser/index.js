@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import {
   StyleSheet,
-  View
+  View,
+  WebView,
 } from 'react-native'
-import WKWebView from '../react-native-wkwebview-reborn'
 import PropTypes from 'prop-types'
 
 export default class GoldenDWebBrowser extends Component {
@@ -21,7 +21,7 @@ export default class GoldenDWebBrowser extends Component {
     onLoadEnd: PropTypes.func,
     onLoadStart: PropTypes.func,
     onProgress: PropTypes.func,
-    onHistoryStateChange: PropTypes.func
+    onHistoryStateChange: PropTypes.func,
   }
 
   static defaultProps = {
@@ -34,66 +34,74 @@ export default class GoldenDWebBrowser extends Component {
     onHistoryStateChange: (data) => { },
     onLoadEnd: () => { },
     onLoadStart: () => { },
-    onProgress: () => { }
+    onProgress: () => { },
   }
 
-  _onMessage(payload) {
+  componentDidMount () {
+    if (typeof this.webview.injectJavaScript !== 'function') {
+      this.webview.injectJavaScript = this.webview.evaluateJavaScript ||
+        (() => {})
+    }
+  }
+
+  _onMessage (payload) {
     if (typeof payload === 'string') return
     const {
       onSignTransaction,
       onSignMessage = () => { },
       onSignPersonalMessage,
       onSignTypedMessage = () => { },
-      onHistoryStateChange
+      onHistoryStateChange,
     } = this.props
     switch (payload.data.name) {
       case 'signTransaction': {
-        onSignTransaction({ id: payload.data.id, object: payload.data.object })
+        onSignTransaction({id: payload.data.id, object: payload.data.object})
         break
       }
       case 'signMessage': {
-        onSignMessage({ id: payload.data.id, object: payload.data.object })
+        onSignMessage({id: payload.data.id, object: payload.data.object})
         break
       }
       case 'signPersonalMessage': {
-        onSignPersonalMessage({ id: payload.data.id, object: payload.data.object })
+        onSignPersonalMessage({id: payload.data.id, object: payload.data.object})
         break
       }
       case 'signTypedMessage': {
-        onSignTypedMessage({ id: payload.data.id, object: payload.data.object })
+        onSignTypedMessage({id: payload.data.id, object: payload.data.object})
         break
       }
       case 'history-state-changed': {
-        onHistoryStateChange({ navState: payload.data.navState })
+        onHistoryStateChange({navState: payload.data.navState})
         break
       }
-      default: break
+      default:
+        break
     }
   }
 
-  executeCallback(id, error, value) {
+  executeCallback (id, error, value) {
     const v = (typeof value === 'object') ? JSON.stringify(value) : `${value}`
     const e = error ? `'${error}'` : 'null'
-    this.webview.evaluateJavaScript(`executeCallback(${id}, ${e}, '${v}')`)
+    this.webview.injectJavaScript(`executeCallback(${id}, ${e}, '${v}')`)
   }
 
-  reload() {
-    this.webview.evaluateJavaScript(`location.reload();`)
+  reload () {
+    this.webview.injectJavaScript(`location.reload();`)
   }
 
-  goBack() {
-    this.webview.evaluateJavaScript(`window.history.back();`)
+  goBack () {
+    this.webview.injectJavaScript(`window.history.back();`)
   }
 
-  goForward() {
-    this.webview.evaluateJavaScript(`window.history.forward();`)
+  goForward () {
+    this.webview.injectJavaScript(`window.history.forward();`)
   }
 
-  loadSource(url) {
-    this.webview.evaluateJavaScript(`location.href = '${url}';`)
+  loadSource (url) {
+    this.webview.injectJavaScript(`location.href = '${url}';`)
   }
 
-  render() {
+  render () {
     const {
       style,
       uri,
@@ -103,14 +111,15 @@ export default class GoldenDWebBrowser extends Component {
       jsContent,
       onLoadEnd,
       onLoadStart,
-      onProgress
+      onProgress,
     } = this.props
 
     return (
       <View style={[styles.container, style]}>
-        <WKWebView
+        <WebView
+          useWebKit={true}
           ref={(ref) => { this.webview = ref }}
-          source={{ uri }}
+          source={{uri}}
           onMessage={(e) => { this._onMessage(e.nativeEvent) }}
           injectJavaScript={getJavascript(addressHex, network, infuraAPIKey, jsContent)}
           injectJavaScriptForMainFrameOnly={true}
@@ -138,7 +147,7 @@ const getJavascript = function (addressHex, network, infuraAPIKey, jsContent) {
     var pushState = history.pushState;
     history.pushState = function(state) {
         setTimeout(function () {
-            window.webkit.messageHandlers.reactNative.postMessage({"name": "history-state-changed", "navState": {"url": location.href, "title": document.title}})
+            window.postMessage({"name": "history-state-changed", "navState": {"url": location.href, "title": document.title}})
         }, 100);
         return pushState.apply(history, arguments);
     };
@@ -202,28 +211,28 @@ const getJavascript = function (addressHex, network, infuraAPIKey, jsContent) {
           console.log('signing a transaction', tx)
           const { id = 8888 } = tx
           goldenProvider.addCallback(id, cb)
-          window.webkit.messageHandlers.reactNative.postMessage({"name": "signTransaction", "object": tx, id: id})
+          window.postMessage({"name": "signTransaction", "object": tx, id: id})
         },
         signMessage: function (msgParams, cb) {
           const { data } = msgParams
           const { id = 8888 } = msgParams
           console.log("signing a message", msgParams)
           goldenProvider.addCallback(id, cb)
-          window.webkit.messageHandlers.reactNative.postMessage({"name": "signMessage", "object": { data }, id: id})
+          window.postMessage({"name": "signMessage", "object": { data }, id: id})
         },
         signPersonalMessage: function (msgParams, cb) {
           const { data } = msgParams
           const { id = 8888 } = msgParams
           console.log("signing a personal message", msgParams)
           goldenProvider.addCallback(id, cb)
-          window.webkit.messageHandlers.reactNative.postMessage({"name": "signPersonalMessage", "object": { data }, id: id})
+          window.postMessage({"name": "signPersonalMessage", "object": { data }, id: id})
         },
         signTypedMessage: function (msgParams, cb) {
           const { data } = msgParams
           const { id = 8888 } = msgParams
           console.log("signing a typed message", msgParams)
           goldenProvider.addCallback(id, cb)
-          window.webkit.messageHandlers.reactNative.postMessage({"name": "signTypedMessage", "object": { data }, id: id})
+          window.postMessage({"name": "signTypedMessage", "object": { data }, id: id})
         }
       },
       {
@@ -253,9 +262,9 @@ const getJavascript = function (addressHex, network, infuraAPIKey, jsContent) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   webView: {
-    flex: 1
-  }
+    flex: 1,
+  },
 })

@@ -9,7 +9,7 @@ import {
   Text
 } from 'react-native'
 import PropTypes from 'prop-types'
-import FCM from 'react-native-fcm'
+// import FCM from 'react-native-fcm'
 import Share from 'react-native-share'
 import RNFS from 'react-native-fs'
 import Carousel from 'react-native-snap-carousel'
@@ -49,7 +49,7 @@ export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props)
-    FCM.setBadgeNumber(0)
+    // FCM.setBadgeNumber(0)
     this.lastIndex = 0
     this.translateY = new Animated.Value(0)
   }

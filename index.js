@@ -43,5 +43,6 @@ import App from './App'
 //   // txb.sign(0, keyPair, null, null, 99800000)
 //   // console.log(txb.build().toHex())
 // })
-
+console.ignoredYellowBox = ['Warning: isMounted','Remote debugger','Require cycle']
+global.XMLHttpRequest = global.originalXMLHttpRequest || global.XMLHttpRequest
 AppRegistry.registerComponent('golden', () => App)

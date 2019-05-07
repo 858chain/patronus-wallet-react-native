@@ -1,9 +1,9 @@
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import DAppBrowserScreen from '../modules/DAppBrowser/DAppBrowserScreen'
 import DAppConfirmScreen from '../modules/DAppBrowser/screen/DappConfirmScreen'
 import AppStyle from '../commons/AppStyle'
 
-const DAppBrowserStack = StackNavigator(
+const DAppBrowserStack = createStackNavigator(
   {
     DAppBrowserScreen: {
       screen: DAppBrowserScreen,

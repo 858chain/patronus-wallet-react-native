@@ -10,7 +10,7 @@ import UnlockDS from './UnlockDS'
 import AppDS from '../../AppStores/DataSource/AppDS'
 import api from '../../api'
 import NotificationStore from '../../AppStores/stores/Notification'
-import PushNotificationHelper from '../../commons/PushNotificationHelper'
+// import PushNotificationHelper from '../../commons/PushNotificationHelper'
 import MixpanelHandler from '../../Handler/MixpanelHandler'
 
 const minute = 60000
@@ -220,12 +220,12 @@ class UnlockStore {
       unlockDes: 'Confirm your Pincode',
       pincode: ''
     })
-    PushNotificationHelper.getToken().then((token) => {
-      if (token) {
-        api.initNotification([], token)
-        NotificationStore.setDeviceToken(token)
-      }
-    })
+    // PushNotificationHelper.getToken().then((token) => {
+    //   if (token) {
+    //     api.initNotification([], token)
+    //     NotificationStore.setDeviceToken(token)
+    //   }
+    // })
   }
 
   async _handleConfirmPin() {
