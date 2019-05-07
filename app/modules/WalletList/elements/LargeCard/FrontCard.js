@@ -56,9 +56,19 @@ export default class FrontCard extends Component {
 
   get symbol() {
     const { type } = this.wallet
-    if (type === 'ethereum') {
-      return 'ETH'
-    }
+    if (type === 'ethereum') return 'ETH'
+    if (type === 'bitcoin') return 'BTC'
+    if (type === 'litecoin') return 'LTC'
+    if (type === 'dogecoin') return 'DOGE'
+    return 'BTC'
+  }
+
+  get cardImage() {
+    const { type } = this.wallet
+    if (type === 'ethereum') return images.imgCardETH
+    if (type === 'bitcoin') return images.imgCardBTC
+    if (type === 'litecoin') return images.imgCardLTC
+    if (type === 'dogecoin') return images.imgCardDOGE
     return 'BTC'
   }
 
@@ -85,7 +95,7 @@ export default class FrontCard extends Component {
       onPress, onLongPress, style, onAddPrivateKey, onBackup, onAlertBackup, onCopy
     } = this.props
     const {
-      title, importType, totalBalanceETH, totalBalanceDollar, isFetchingBalance, isHideValue, type
+      title, importType, totalBalanceETH, totalBalanceDollar, isFetchingBalance, isHideValue
     } = this.wallet
 
     const isHide = isHideValue
@@ -154,11 +164,12 @@ export default class FrontCard extends Component {
             style={
               {
                 marginTop: cardHeight * 0.07,
-                width: type === 'ethereum' ? cardHeight * 0.31 * 0.63 : cardHeight * 0.42 * 0.63,
-                height: type === 'ethereum' ? cardHeight * 0.31 : cardHeight * 0.35
+                height: cardHeight * 0.31,
+                width: cardWidth / 3,
+                resizeMode: 'contain'
               }
             }
-            source={type === 'ethereum' ? images.imgCardETH : images.imgCardBTC}
+            source={this.cardImage}
           />
           <Text style={[styles.balance]}>{balanceSecret}</Text>
           <Text style={[styles.balanceUSD, { marginBottom: 6 }]}>{balanceUSDSecret}</Text>

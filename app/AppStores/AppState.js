@@ -14,6 +14,8 @@ import NotificationStore from './stores/Notification'
 
 class AppState {
   dataVersion = '1'
+  @observable.ref biometryType = ''
+  @observable enableTouchFaceID = null
   @observable config = new Config('mainnet', Constants.INFURA_API_KEY)
   @observable defaultWallet = null // for web3 dapp
   @observable selectedWallet = null // for sending transaction
@@ -22,10 +24,14 @@ class AppState {
   @observable addressBooks = []
   @observable rateETHDollar = new BigNumber(0)
   @observable rateBTCDollar = new BigNumber(0)
+  @observable rateLTCDollar = new BigNumber(0)
+  @observable rateDOGEDollar = new BigNumber(0)
   @observable hasPassword = false
   @observable didBackup = false
   currentWalletIndex = 0
   currentBTCWalletIndex = 0
+  currentLTCWalletIndex = 0
+  currentDOGEWalletIndex = 0
   @observable internetConnection = 'online' // online || offline
   @observable unpendTransactions = []
   @observable gasPriceEstimate = {
@@ -56,6 +62,8 @@ class AppState {
     Reactions.auto.listenConnection(this)
     this.getRateETHDollar()
     this.getRateBTCDollar()
+    this.getRateLTCDollar()
+    this.getRateDOGEDollar()
     this.getGasPriceEstimate()
   }
 
@@ -64,6 +72,16 @@ class AppState {
     this.BgJobs.CheckPendingTransaction.doOnce()
     this.BgJobs.CheckBalance.start()
     this.BgJobs.CheckPendingTransaction.start()
+  }
+
+  @action setEnableTouchFaceID = (enable) => {
+    this.enableTouchFaceID = enable
+    this.save()
+  }
+
+  @action setBiometryType = (biometryType) => {
+    this.biometryType = biometryType
+    this.save()
   }
 
   initMixpanel() {
@@ -127,6 +145,16 @@ class AppState {
     this.save()
   }
 
+  @action setCurrentLTCWalletIndex(index) {
+    this.currentLTCWalletIndex = index
+    this.save()
+  }
+
+  @action setCurrentDOGEWalletIndex(index) {
+    this.currentDOGEWalletIndex = index
+    this.save()
+  }
+
   @action async getRateETHDollar() {
     setTimeout(async () => {
       if (this.internetConnection === 'online') {
@@ -147,6 +175,28 @@ class AppState {
 
       if (rate.PRICE != this.rateBTCDollar) {
         this.rateBTCDollar = new BigNumber(rate.PRICE)
+      }
+    }, 100)
+  }
+
+  @action async getRateLTCDollar() {
+    setTimeout(async () => {
+      const rs = await api.fetchRateLTCDollar()
+      const rate = rs.data && rs.data.RAW && rs.data.RAW.LTC && rs.data.RAW.LTC.USD
+
+      if (rate.PRICE != this.rateBTCDollar) {
+        this.rateLTCDollar = new BigNumber(rate.PRICE)
+      }
+    }, 100)
+  }
+
+  @action async getRateDOGEDollar() {
+    setTimeout(async () => {
+      const rs = await api.fetchRateDOGEDollar()
+      const rate = rs.data && rs.data.RAW && rs.data.RAW.DOGE && rs.data.RAW.DOGE.USD
+
+      if (rate.PRICE != this.rateBTCDollar) {
+        this.rateDOGEDollar = new BigNumber(rate.PRICE)
       }
     }, 100)
   }
@@ -188,8 +238,12 @@ class AppState {
     this.config = new Config(data.config.network, data.config.infuraKey)
     this.hasPassword = data.hasPassword
     this.didBackup = data.didBackup
+    this.enableTouchFaceID = data.enableTouchFaceID
+    this.biometryType = data.biometryType || ''
     this.currentWalletIndex = data.currentWalletIndex || 0
     this.currentBTCWalletIndex = data.currentBTCWalletIndex || 0
+    this.currentLTCWalletIndex = data.currentLTCWalletIndex || 0
+    this.currentDOGEWalletIndex = data.currentDOGEWalletIndex || 0
     const addressBooks = await AddressBookDS.getAddressBooks()
     this.addressBooks = addressBooks
     this.shouldShowUpdatePopup = data.shouldShowUpdatePopup !== undefined ? data.shouldShowUpdatePopup : true
@@ -205,7 +259,18 @@ class AppState {
 
     this.rateETHDollar = new BigNumber(data.rateETHDollar || 0)
     this.rateBTCDollar = new BigNumber(data.rateBTCDollar || 0)
+    this.rateLTCDollar = new BigNumber(data.rateLTCDollar || 0)
+    this.rateDOGEDollar = new BigNumber(data.rateDOGEDollar || 0)
     this.gasPriceEstimate = data.gasPriceEstimate
+  }
+
+  @computed get isShowDappButton() {
+    const wallet = this.selectedWallet
+    const idx = this.wallets.length
+    if (this.currentCardIndex !== idx && wallet) {
+      return wallet.type === 'ethereum' && wallet.canSendTransaction
+    }
+    return false
   }
 
   @computed get isShowSendButton() {
@@ -262,6 +327,8 @@ class AppState {
       hasPassword: this.hasPassword,
       rateETHDollar: this.rateETHDollar.toString(10),
       rateBTCDollar: this.rateBTCDollar.toString(10),
+      rateLTCDollar: this.rateLTCDollar.toString(10),
+      rateDOGEDollar: this.rateDOGEDollar.toString(10),
       currentWalletIndex: this.currentWalletIndex,
       currentBTCWalletIndex: this.currentBTCWalletIndex,
       didBackup: this.didBackup,
@@ -269,6 +336,8 @@ class AppState {
       enableNotification: this.enableNotification,
       lastestVersionRead: this.lastestVersionRead,
       shouldShowUpdatePopup: this.shouldShowUpdatePopup,
+      enableTouchFaceID: this.enableTouchFaceID,
+      biometryType: this.biometryType,
       allowDailyUsage: this.allowDailyUsage
     }
   }

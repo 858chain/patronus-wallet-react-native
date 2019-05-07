@@ -26,6 +26,16 @@ export default class ImportPrivateKeyStore {
     return this.customTitle
   }
 
+  getSymbol(type) {
+    switch (type) {
+      case 'ethereum': return 'ETH'
+      case 'bitcoin': return 'BTC'
+      case 'litecoin': return 'LTC'
+      case 'dogecoin': return 'DOGE'
+      default: return 'BTC'
+    }
+  }
+
   @action async create(coin = chainNames.ETH) {
     NavStore.lockScreen({
       onUnlock: async (pincode) => {
@@ -34,9 +44,9 @@ export default class ImportPrivateKeyStore {
 
         try {
           let { privateKey } = this
-          if (coin === chainNames.BTC && Checker.checkWIFBTC(this.privateKey)) {
+          if (coin !== chainNames.ETH && Checker.checkWIFBTC(this.privateKey)) {
             const decode = wif.decode(this.privateKey)
-            privateKey = bigi.fromBuffer(decode.privateKey).toString(16)
+            privateKey = bigi.fromBuffer(decode.privateKey).toString(16).padStart(64, '0')
           }
           const w = importPrivateKey(privateKey, this.title, ds, coin)
           if (this.addressMap[w.address]) {
@@ -45,7 +55,7 @@ export default class ImportPrivateKeyStore {
             return
           }
           this.finished = true
-          NotificationStore.addWallet(this.title, w.address, w.type === 'ethereum' ? 'ETH' : 'BTC')
+          NotificationStore.addWallet(this.title, w.address, this.getSymbol(w.type))
           NavStore.showToastTop(`${this.title} was successfully imported!`, {}, { color: AppStyle.colorUp })
 
           await MainStore.appState.appWalletsStore.addOne(w)
@@ -57,7 +67,8 @@ export default class ImportPrivateKeyStore {
           if (w.type === 'ethereum') {
             NavStore.pushToScreen('TokenScreen')
           }
-        } catch (_) {
+        } catch (e) {
+          console.log(e)
           this.loading = false
           NavStore.popupCustom.show('Invalid private key.')
         }

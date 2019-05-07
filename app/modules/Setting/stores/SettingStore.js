@@ -4,9 +4,9 @@ import DeviceInfo from 'react-native-device-info'
 import * as StoreReview from 'react-native-store-review'
 import constant from '../../../commons/constant'
 import NavStore from '../../../AppStores/NavStore'
-import MainStore from '../../../AppStores/MainStore'
 import Router from '../../../AppStores/Router'
 import MixpanelHandler from '../../../Handler/MixpanelHandler'
+import MainStore from '../../../AppStores/MainStore'
 
 const store = Platform.OS === 'ios' ? 'App Store' : 'Google Play'
 const PLAY_STORE_LINK = 'market://details?id=io.goldenwallet'
@@ -45,6 +45,9 @@ export default class SettingStore {
     {
       mainText: 'Change Pincode',
       onPress: () => { this.showChangePincode() }
+    },
+    {
+      mainText: ''
     }
   ]
 

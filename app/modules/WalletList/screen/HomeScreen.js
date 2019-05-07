@@ -28,7 +28,6 @@ import MainStore from '../../../AppStores/MainStore'
 import NavStore from '../../../AppStores/NavStore'
 import Config from '../../../AppStores/stores/Config'
 import Router from '../../../AppStores/Router'
-import TickerStore from '../stores/TickerStore'
 import NotificationStore from '../../../AppStores/stores/Notification'
 import AppVersion from '../../../AppStores/stores/AppVersion'
 import HomeDAppButton from '../elements/HomeDAppButton'
@@ -68,15 +67,17 @@ export default class HomeScreen extends Component {
   }
 
   onUnlock = () => {
-    TickerStore.callApi()
+    // TickerStore.callApi()
     MainStore.appState.startAllBgJobs()
     if (!NotificationStore.isInitFromNotification) {
       if (this.shouldShowUpdatePopup) {
         this._gotoNewUpdatedAvailableScreen()
-      } else if (MainStore.appState.allowDailyUsage === undefined) {
+      } else if (MainStore.appState.allowDailyUsage === null) {
         this._gotoAppAnalytics()
       } else if (MainStore.appState.wallets.length === 0) {
         this._gotoCreateWallet()
+      } else if (MainStore.appState.enableTouchFaceID === null) {
+        this._showPopupBiometry()
       }
     } else {
       NotificationStore.isInitFromNotification = false
@@ -170,6 +171,13 @@ export default class HomeScreen extends Component {
     return false
   }
 
+  get biometryType() {
+    if (MainStore.appState.biometryType === 'FaceID') {
+      return 'Face ID'
+    }
+    return 'Touch ID'
+  }
+
   openShare = (filePath) => {
     MainStore.appState.mixpanleHandler.track(MixpanelHandler.eventName.ACTION_SHARE)
     NavStore.preventOpenUnlockScreen = true
@@ -181,6 +189,29 @@ export default class HomeScreen extends Component {
       }
       Share.open(shareOptions).catch(() => { })
     })
+  }
+
+  _showPopupBiometry = () => {
+    NavStore.popupCustom.show(
+      `Unlock with ${this.biometryType}`,
+      [
+        {
+          text: 'Not Now',
+          onClick: () => {
+            MainStore.appState.setEnableTouchFaceID(false)
+            NavStore.popupCustom.hide()
+          }
+        },
+        {
+          text: `Use ${this.biometryType}`,
+          onClick: () => {
+            MainStore.appState.setEnableTouchFaceID(true)
+            NavStore.popupCustom.hide()
+          }
+        }
+      ],
+      `Use your ${this.biometryType} for faster, easier access to Golden Wallet`
+    )
   }
 
   _renderNetwork = () => {
@@ -205,8 +236,7 @@ export default class HomeScreen extends Component {
       />
     )
 
-  _gotoCreateWallet = () => {
-    if (MainStore.appState.wallets.length > 0) return
+  _gotoCreateWallet() {
     NavStore.pushToScreen('CreateWalletStack')
   }
 
@@ -289,7 +319,6 @@ export default class HomeScreen extends Component {
 
   render() {
     const { translateY } = this
-    const { selectedWallet } = MainStore.appState
     const changeOpacityListCoin = translateY.interpolate({
       inputRange: [0, 1],
       outputRange: [1, 0],

@@ -36,6 +36,8 @@ export default class ImportWalletScreen extends Component {
     const { navigation } = this.props
     const { coin } = navigation.state.params
     if (coin === chainNames.ETH) return images.logoETH
+    if (coin === chainNames.LTC) return images.logoLTC
+    if (coin === chainNames.DOGE) return images.logoDOGE
     return images.logoBTC
   }
 

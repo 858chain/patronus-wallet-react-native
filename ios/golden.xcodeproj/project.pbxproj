@@ -361,6 +361,13 @@
 			remoteGlobalIDString = 5EAEEA411F0555B100C6FED8;
 			remoteInfo = "RNMixpanel-tvOS";
 		};
+		9A907153215E3CBB00CA7A89 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A90714F215E3CBB00CA7A89 /* TouchID.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = TouchID;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -388,13 +395,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 163CDE4E2087CAD3001065FB;
 			remoteInfo = "RNRandomBytes-tvOS";
-		};
-		B44B1B6A21074B9800EE6656 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C7A3A4E910F84DEAB6B50837 /* TouchID.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = TouchID;
 		};
 		B44B1B7421074B9800EE6656 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -533,6 +533,7 @@
 		92C273CF215E957E00B43331 /* libMixpanel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMixpanel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C273D1215E95A800B43331 /* libMixpanel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMixpanel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C273EC215E97AF00B43331 /* RNMixpanel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMixpanel.xcodeproj; path = "../node_modules/react-native-mixpanel/RNMixpanel.xcodeproj"; sourceTree = "<group>"; };
+		9A90714F215E3CBB00CA7A89 /* TouchID.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TouchID.xcodeproj; path = "../Libs/react-native-touch-id/TouchID.xcodeproj"; sourceTree = "<group>"; };
 		9FC9C43CDFA04329BD39361B /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Italic.ttf"; path = "../App/assets/fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
 		A30AE93A4A724E86A070C775 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiboldItalic.ttf"; path = "../App/assets/fonts/OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		A4E768AD4421420F9A5416DF /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Semibold.ttf"; path = "../App/assets/fonts/OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
@@ -549,7 +550,6 @@
 		BDE51DB2011F4E489C714CA0 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		C05425C4981E4820AF293681 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		C16AE9CC7B8263857FCF3CDA /* Pods-golden.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-golden.debug.xcconfig"; path = "Pods/Target Support Files/Pods-golden/Pods-golden.debug.xcconfig"; sourceTree = "<group>"; };
-		C7A3A4E910F84DEAB6B50837 /* TouchID.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = TouchID.xcodeproj; path = "../node_modules/react-native-touch-id/TouchID.xcodeproj"; sourceTree = "<group>"; };
 		C89515CAE633F18DCB86C338 /* libPods-golden.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-golden.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC0E9C9A83648B99E801C24 /* CourierNewBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = CourierNewBoldItalic.ttf; path = ../App/assets/fonts/CourierNewBoldItalic.ttf; sourceTree = "<group>"; };
 		DB8649ADE10D499B92CCE381 /* libRNRandomBytes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRandomBytes.a; sourceTree = "<group>"; };
@@ -811,6 +811,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				9A90714F215E3CBB00CA7A89 /* TouchID.xcodeproj */,
 				92C273EC215E97AF00B43331 /* RNMixpanel.xcodeproj */,
 				6F367DEB214A6F8700A10D70 /* RCTWKWebView.xcodeproj */,
 				B44B1BB421074BBD00EE6656 /* RCTQRCodeLocalImage.xcodeproj */,
@@ -835,7 +836,6 @@
 				404B4D5BE4274BC29D0FA46C /* RNRandomBytes.xcodeproj */,
 				8E415F1E67F64BDBA5B7BD25 /* SplashScreen.xcodeproj */,
 				AF27543A6DDD46E7863DF508 /* RNStoreReview.xcodeproj */,
-				C7A3A4E910F84DEAB6B50837 /* TouchID.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -882,6 +882,14 @@
 			children = (
 				92C273F1215E97AF00B43331 /* libRNMixpanel.a */,
 				92F1A7F2216464CD000DC3C8 /* libRNMixpanel-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9A907150215E3CBB00CA7A89 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A907154215E3CBB00CA7A89 /* libTouchID.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -954,14 +962,6 @@
 			isa = PBXGroup;
 			children = (
 				B44B1B5B21074B9800EE6656 /* libReactNativePermissions.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		B44B1B6421074B9800EE6656 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B44B1B6B21074B9800EE6656 /* libTouchID.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1263,8 +1263,8 @@
 					ProjectRef = 8E415F1E67F64BDBA5B7BD25 /* SplashScreen.xcodeproj */;
 				},
 				{
-					ProductGroup = B44B1B6421074B9800EE6656 /* Products */;
-					ProjectRef = C7A3A4E910F84DEAB6B50837 /* TouchID.xcodeproj */;
+					ProductGroup = 9A907150215E3CBB00CA7A89 /* Products */;
+					ProjectRef = 9A90714F215E3CBB00CA7A89 /* TouchID.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1551,6 +1551,13 @@
 			remoteRef = 92F1A7F1216464CD000DC3C8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		9A907154215E3CBB00CA7A89 /* libTouchID.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTouchID.a;
+			remoteRef = 9A907153215E3CBB00CA7A89 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1577,13 +1584,6 @@
 			fileType = archive.ar;
 			path = "libRNRandomBytes-tvOS.a";
 			remoteRef = B44B1B6021074B9800EE6656 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B44B1B6B21074B9800EE6656 /* libTouchID.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libTouchID.a;
-			remoteRef = B44B1B6A21074B9800EE6656 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		B44B1B7521074B9800EE6656 /* libRNStoreReview.a */ = {
@@ -1948,6 +1948,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2010,6 +2011,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2027,7 +2029,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = golden/golden.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -2064,7 +2066,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.goldenwallet;
 				PRODUCT_NAME = golden;
 				PROVISIONING_PROFILE = "38732fa4-3e61-41e8-a57c-73fddb798f02";
-				PROVISIONING_PROFILE_SPECIFIER = Golden_Dev;
+				PROVISIONING_PROFILE_SPECIFIER = GoldenAppStore;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -2075,7 +2077,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = golden/golden.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2111,7 +2113,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.goldenwallet;
 				PRODUCT_NAME = golden;
 				PROVISIONING_PROFILE = "38732fa4-3e61-41e8-a57c-73fddb798f02";
-				PROVISIONING_PROFILE_SPECIFIER = Golden_Dev;
+				PROVISIONING_PROFILE_SPECIFIER = GoldenAppStore;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -2153,6 +2155,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2244,6 +2247,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2312,6 +2316,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2359,6 +2364,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

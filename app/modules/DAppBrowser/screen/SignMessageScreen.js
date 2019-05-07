@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Platform,
   SafeAreaView
 } from 'react-native'
 import PropTypes from 'prop-types'
@@ -10,13 +11,12 @@ import { hexToString } from '../../../api/ether-json-rpc'
 import NavigationHeader from '../../../components/elements/NavigationHeader'
 import NavStore from '../../../AppStores/NavStore'
 import images from '../../../commons/images'
-import LayoutUtils from '../../../commons/LayoutUtils'
 import MainStore from '../../../AppStores/MainStore'
 import AppStyle from '../../../commons/AppStyle'
 import BottomButton from '../../../components/elements/BottomButton'
+import LayoutUtils from '../../../commons/LayoutUtils'
 
-const marginTop = LayoutUtils.getExtraTop()
-
+const marginTop = Platform.OS === 'android' ? LayoutUtils.getExtraTop() : 0
 export default class DAppListScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object

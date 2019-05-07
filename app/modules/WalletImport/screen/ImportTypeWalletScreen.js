@@ -2,23 +2,42 @@ import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
-  Dimensions
+  FlatList
 } from 'react-native'
 import { observer } from 'mobx-react/native'
 import NavigationHeader from '../../../components/elements/NavigationHeader'
-import SmallCard from '../../../components/elements/SmallCard'
 import LayoutUtils from '../../../commons/LayoutUtils'
 import images from '../../../commons/images'
-import AppStyle from '../../../commons/AppStyle'
 import NavStore from '../../../AppStores/NavStore'
 import { chainNames } from '../../../Utils/WalletAddresses'
 import MainStore from '../../../AppStores/MainStore'
+import CoinItem from '../../../components/elements/CoinItem'
 
 const marginTop = LayoutUtils.getExtraTop()
-const { width } = Dimensions.get('window')
+
+const dataCoin = [
+  { imgCoin: images.imgCardBTC, coin: chainNames.BTC },
+  { imgCoin: images.imgCardETH, coin: chainNames.ETH },
+  { imgCoin: images.imgCardLTC, coin: chainNames.LTC },
+  { imgCoin: images.imgCardDOGE, coin: chainNames.DOGE }
+]
 
 @observer
 export default class WalletTypeImportScreen extends Component {
+  onPress = (item) => {
+    switch (item.coin) {
+      case chainNames.ETH:
+        return this.gotoEnterNameETH()
+      case chainNames.BTC:
+        return this.gotoEnterNameBTC()
+      case chainNames.LTC:
+        return this.gotoEnterNameLTC()
+      case chainNames.DOGE:
+        return this.gotoEnterNameDOGE()
+      default: return this.gotoEnterNameBTC()
+    }
+  }
+
   goBack = () => {
     NavStore.goBack()
   }
@@ -39,6 +58,31 @@ export default class WalletTypeImportScreen extends Component {
     })
   }
 
+  gotoEnterNameLTC = () => {
+    if (MainStore.appState.config.network !== 'mainnet') {
+      NavStore.popupCustom.show('You need change network to main net to import BTC Wallet')
+      return
+    }
+    NavStore.pushToScreen('ImportWalletScreen', {
+      coin: chainNames.LTC
+    })
+  }
+
+  gotoEnterNameDOGE = () => {
+    if (MainStore.appState.config.network !== 'mainnet') {
+      NavStore.popupCustom.show('You need change network to main net to import DOGE Wallet')
+      return
+    }
+    NavStore.pushToScreen('ImportWalletScreen', {
+      coin: chainNames.DOGE
+    })
+  }
+
+  keyExtractor = item => item.coin
+
+  renderItem = ({ item, index }) =>
+    <CoinItem item={item} index={index} onPress={() => this.onPress(item)} />
+
   render() {
     return (
       <View style={styles.container}>
@@ -51,7 +95,16 @@ export default class WalletTypeImportScreen extends Component {
           }}
           action={this.goBack}
         />
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <FlatList
+          style={{ flex: 1 }}
+          numColumns={2}
+          columnWrapperStyle={{ marginVertical: 15, marginHorizontal: 20 }}
+          showVerticalScrollIndicator={false}
+          keyExtractor={this.keyExtractor}
+          data={dataCoin}
+          renderItem={this.renderItem}
+        />
+        {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <SmallCard
             style={{ height: 214 }}
             title="Bitcoin"
@@ -72,7 +125,7 @@ export default class WalletTypeImportScreen extends Component {
             titleTextStyle={{ color: AppStyle.mainTextColor }}
             subtitleTextStyle={{ color: AppStyle.secondaryTextColor, marginTop: 4, fontSize: 16 }}
           />
-        </View>
+        </View> */}
       </View>
     )
   }

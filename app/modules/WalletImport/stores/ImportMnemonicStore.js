@@ -17,7 +17,9 @@ export default class ImportMnemonicStore {
   @observable loading = false
   @observable selectedWallet = null
   @observable isErrorMnemonic = false
+  @observable isLoadmore = false
   stopCheckTitle = false
+  page = 1
 
   @action setTitle = (title) => { this.customTitle = title }
   @action onChangeMnemonic = (mn) => {
@@ -39,15 +41,29 @@ export default class ImportMnemonicStore {
 
   @action async generateWallets(coin = chainNames.ETH) {
     let coinPath = ''
+    const fromIndex = (this.page - 1) * 4
+    const toWallet = fromIndex + 3
     if (coin === chainNames.ETH) {
       coinPath = KeyStore.CoinType.ETH.path
     } else if (coin === chainNames.BTC) {
       coinPath = KeyStore.CoinType.BTC.path
+    } else if (coin === chainNames.LTC) {
+      coinPath = KeyStore.CoinType.LTC.path
+    } else if (coin === chainNames.DOGE) {
+      coinPath = KeyStore.CoinType.BTC.path
     }
     this.loading = true
-    this.mnemonicWallets = await getWalletsFromMnemonic(this.mnemonic, coinPath, 0, 20, coin)
+    const mnemonicWallets = await getWalletsFromMnemonic(this.mnemonic, coinPath, fromIndex, toWallet, coin)
+    this.mnemonicWallets = [...this.mnemonicWallets, ...mnemonicWallets]
+    this.isLoadmore = false
     this.loading = false
     return this.mnemonicWallets
+  }
+
+  @action async loadmore(coin = chainNames.ETH) {
+    this.page += 1
+    this.isLoadmore = true
+    setTimeout(() => this.generateWallets(coin), 1000)
   }
 
   get walletIsExisted() {
@@ -70,6 +86,16 @@ export default class ImportMnemonicStore {
     NavStore.pushToScreen('EnterNameViaMnemonic', { coin })
   }
 
+  getSymbol(type) {
+    switch (type) {
+      case 'ethereum': return 'ETH'
+      case 'bitcoin': return 'BTC'
+      case 'litecoin': return 'LTC'
+      case 'dogecoin': return 'DOGE'
+      default: return 'BTC'
+    }
+  }
+
   @action async unlockWallet(coin = chainNames.ETH) {
     NavStore.lockScreen({
       onUnlock: async (pincode) => {
@@ -78,6 +104,10 @@ export default class ImportMnemonicStore {
         if (coin === chainNames.ETH) {
           coinPath = KeyStore.CoinType.ETH.path
         } else if (coin === chainNames.BTC) {
+          coinPath = KeyStore.CoinType.BTC.path
+        } else if (coin === chainNames.LTC) {
+          coinPath = KeyStore.CoinType.LTC.path
+        } else if (coin === chainNames.DOGE) {
           coinPath = KeyStore.CoinType.BTC.path
         }
 
@@ -90,7 +120,7 @@ export default class ImportMnemonicStore {
 
         const ds = new SecureDS(pincode)
         const wallet = await unlockFromMnemonic(this.mnemonic, title, index, ds, coinPath, coin)
-        NotificationStore.addWallet(title, wallet.address, wallet.type === 'ethereum' ? 'ETH' : 'BTC')
+        NotificationStore.addWallet(title, wallet.address, this.getSymbol(wallet.type))
         NavStore.showToastTop(`${this.title} was successfully imported!`, {}, { color: AppStyle.colorUp })
 
         await MainStore.appState.appWalletsStore.addOne(wallet)

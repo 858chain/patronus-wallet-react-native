@@ -45,6 +45,16 @@ export const fetchWalletBTCInfo = (address) => {
   return caller.get(url, {}, true)
 }
 
+export const fetchWalletLTCInfo = (address) => {
+  const url = `${URL.ChainSo.apiURL()}/address/LTC/${address}`
+  return caller.get(url, {}, true)
+}
+
+export const fetchWalletDOGEInfo = (address) => {
+  const url = `${URL.ChainSo.apiURL()}/address/DOGE/${address}`
+  return caller.get(url, {}, true)
+}
+
 export const fetchRateETHDollar = () => {
   const data = {
     fsyms: 'ETH',
@@ -56,6 +66,22 @@ export const fetchRateETHDollar = () => {
 export const fetchRateBTCDollar = () => {
   const data = {
     fsyms: 'BTC',
+    tsyms: 'BTC,USD,EUR,GBP,AUD,CAD,CNY,JPY,RUB'
+  }
+  return caller.get(`${URL.CryptoCompare.apiURL()}/data/pricemultifull`, data, true)
+}
+
+export const fetchRateLTCDollar = () => {
+  const data = {
+    fsyms: 'LTC',
+    tsyms: 'BTC,USD,EUR,GBP,AUD,CAD,CNY,JPY,RUB'
+  }
+  return caller.get(`${URL.CryptoCompare.apiURL()}/data/pricemultifull`, data, true)
+}
+
+export const fetchRateDOGEDollar = () => {
+  const data = {
+    fsyms: 'DOGE',
     tsyms: 'BTC,USD,EUR,GBP,AUD,CAD,CNY,JPY,RUB'
   }
   return caller.get(`${URL.CryptoCompare.apiURL()}/data/pricemultifull`, data, true)

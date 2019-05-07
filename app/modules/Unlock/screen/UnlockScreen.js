@@ -17,6 +17,10 @@ import UnlockStore from '../UnlockStore'
 import DisableView from '../elements/DisableView'
 import AppStyle from '../../../commons/AppStyle'
 import Keyboard from '../elements/Keyboard'
+import MainStore from '../../../AppStores/MainStore'
+import NavStore from '../../../AppStores/NavStore'
+import HapticHandler from '../../../Handler/HapticHandler'
+import BiometryHandler from '../../../Handler/BiometryHandler'
 
 const { height } = Dimensions.get('window')
 const isSmallScreen = height < 569
@@ -39,8 +43,15 @@ export default class UnlockScreen extends Component {
 
   componentDidMount() {
     UnlockStore.setup()
+    const { params } = this.props.navigation.state
+    const { appState } = MainStore
     if (Platform.OS === 'android') {
       BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+      if (appState.biometryType && appState.enableTouchFaceID && params.isLaunchApp) {
+        this.showPromptTouchFaceID()
+      }
+    } else if (appState.biometryType != '' && appState.enableTouchFaceID && params.isLaunchApp) {
+      this.showPromptTouchFaceID()
     }
   }
 
@@ -53,6 +64,20 @@ export default class UnlockScreen extends Component {
   get shouldShowDisableView() {
     const { wrongPincodeCount, timeRemaining } = UnlockStore
     return wrongPincodeCount > 5 && timeRemaining > 0
+  }
+
+  handleSuccessTouchFaceID = () => {
+    UnlockStore.data.pincode = '000000'
+    setTimeout(() => {
+      UnlockStore.resetDisable()
+      HapticHandler.NotificationSuccess()
+      this.props.navigation.state.params.onUnlock('')
+      NavStore.goBack()
+    }, 250)
+  }
+
+  showPromptTouchFaceID = () => {
+    BiometryHandler.show(this.handleSuccessTouchFaceID)
   }
 
   handleBackPress = () => {

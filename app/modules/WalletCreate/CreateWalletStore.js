@@ -19,6 +19,16 @@ class CreateWalletStore {
     this.customTitle = title
   }
 
+  getSymbol(type) {
+    switch (type) {
+      case 'ethereum': return 'ETH'
+      case 'bitcoin': return 'BTC'
+      case 'litecoin': return 'LTC'
+      case 'dogecoin': return 'DOGE'
+      default: return 'BTC'
+    }
+  }
+
   @action handleCreateWallet(coin = chainNames.ETH) {
     NavStore.lockScreen({
       onUnlock: (pincode) => {
@@ -33,11 +43,17 @@ class CreateWalletStore {
         } else if (coin === chainNames.BTC) {
           coinPath = Keystore.CoinType.BTC.path
           index = MainStore.appState.currentBTCWalletIndex
+        } else if (coin === chainNames.LTC) {
+          coinPath = Keystore.CoinType.LTC.path
+          index = MainStore.appState.currentLTCWalletIndex
+        } else if (coin === chainNames.DOGE) {
+          coinPath = Keystore.CoinType.BTC.path
+          index = MainStore.appState.currentDOGEWalletIndex
         }
         const { title } = this
         generateNew(ds, title, index, coinPath, coin).then(async (w) => {
           this.finished = true
-          NotificationStore.addWallet(title, w.address, w.type === 'ethereum' ? 'ETH' : 'BTC')
+          NotificationStore.addWallet(title, w.address, this.getSymbol(w.type))
           NavStore.showToastTop(`${title} was successfully created!`, {}, { color: AppStyle.colorUp })
           MainStore.appState.appWalletsStore.addOne(w)
           MainStore.appState.autoSetSelectedWallet()
@@ -45,6 +61,10 @@ class CreateWalletStore {
             MainStore.appState.setCurrentWalletIndex(index + 1)
           } else if (coin === chainNames.BTC) {
             MainStore.appState.setCurrentBTCWalletIndex(index + 1)
+          } else if (coin === chainNames.LTC) {
+            MainStore.appState.setCurrentLTCWalletIndex(index + 1)
+          } else if (coin === chainNames.DOGE) {
+            MainStore.appState.setCurrentDOGEWalletIndex(index + 1)
           }
           MainStore.appState.save()
           MainStore.appState.selectedWallet.fetchingBalance()

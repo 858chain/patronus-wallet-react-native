@@ -63,9 +63,35 @@ export const getTxID = (address) => {
   return caller.get(`${URL.BlockChainInfo.apiURL()}/unspent?active=${address}`)
 }
 
+export const getTxIDLTC = (address) => {
+  return caller.get(`${URL.ChainSo.apiURL()}/get_tx_unspent/LTC/${address}`)
+}
+
+export const getTxIDDOGE = (address) => {
+  return caller.get(`${URL.ChainSo.apiURL()}/get_tx_unspent/DOGE/${address}`)
+}
+
 export const pushTxBTC = (rawTx) => {
   const data = {
     tx: rawTx
   }
   return caller.post(`${URL.BlockChainInfo.apiURL()}/pushtx`, data, false)
+}
+
+export const pushTxLTC = (rawTx) => {
+  const data = { tx_hex: rawTx }
+  return caller.post(`${URL.ChainSo.apiURL()}/send_tx/LTC`, data, false)
+}
+
+export const getTxDetailLtc = (txId) => {
+  return caller.get(`${URL.ChainSo.apiURL()}/tx/LTC/${txId}`)
+}
+
+export const pushTxDOGE = (rawTx) => {
+  const data = { tx_hex: rawTx }
+  return caller.post(`${URL.ChainSo.apiURL()}/send_tx/DOGE`, data, false)
+}
+
+export const getTxDetailDOGE = (txId) => {
+  return caller.get(`${URL.ChainSo.apiURL()}/tx/DOGE/${txId}`)
 }

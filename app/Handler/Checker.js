@@ -4,9 +4,8 @@ class Checker {
   static checkAddress(address, coin) {
     if (coin === chainNames.ETH) {
       return this.checkAddressETH(address)
-    } else if (coin === chainNames.BTC) {
-      return this.checkAddressBTC(address)
     }
+    return this.checkAddressBTC(address)
     // if (address.length !== validateLength) {
     //   return false
     // }
@@ -40,16 +39,19 @@ class Checker {
     let regx = ''
     if (coin === chainNames.ETH) {
       regx = /^0x[0-9A-Fa-f]{40}$/
-    } else if (coin === chainNames.BTC) {
-      regx = /^[0-9A-Za-z]{34}$/
+    } else {
+      regx = /^[0-9A-Za-z]{25,34}$/
     }
     return address.match(regx)
   }
   static checkAddressQRBTC(address) {
-    const regx = /[0-9A-Za-z]{34}/
+    const regx = /[0-9A-Za-z]{25,34}/
     return address.match(regx)
   }
   static checkPrivateKey(key) {
+    if (key.length === 52) {
+      return key.match(/^[0-9A-Za-z]{52}$/)
+    }
     const regx = /^[0-9A-Fa-f]{64}$/
     return key.match(regx)
   }

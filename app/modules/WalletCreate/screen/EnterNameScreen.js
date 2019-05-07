@@ -21,7 +21,7 @@ import constant from '../../../commons/constant'
 import TouchOutSideDismissKeyboard from '../../../components/elements/TouchOutSideDismissKeyboard'
 
 const { width } = Dimensions.get('window')
-const marginTop = LayoutUtils.getExtraTopAndroid()
+const marginTop = LayoutUtils.getExtraTop()
 
 @observer
 export default class EnterNameScreen extends Component {
@@ -66,14 +66,14 @@ export default class EnterNameScreen extends Component {
     const { title, loading, isReadCreate } = this.createWalletStore
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <TouchOutSideDismissKeyboard >
+        <TouchOutSideDismissKeyboard>
           <View style={styles.container}>
             <NavigationHeader
               style={{ marginTop: marginTop + 20, width }}
               headerItem={{
                 title: 'Type Your Wallet Name',
                 icon: null,
-                button: images.closeButton
+                button: images.backButton
               }}
               action={this.handleBack}
             />

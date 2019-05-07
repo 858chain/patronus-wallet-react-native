@@ -90,18 +90,17 @@ export default class TransactionBTCDetailScreen extends Component {
 
   get checkURL() {
     const { hash } = this.selectedTransaction
-    const { networkName } = AppState
-    if (this.symbol === 'BTC') {
-      return `${URL.BlockChainInfo.webURL()}/en/btc/tx/${hash}`
-    }
-    return `${URL.EtherScan.webURL(networkName)}/tx/${hash}`
+    if (this.symbol === 'BTC') return `${URL.BlockChainInfo.webURL()}/en/btc/tx/${hash}`
+    if (this.symbol === 'LTC') return `${URL.BlockCypher.webURL()}/ltc/tx/${hash}`
+    if (this.symbol === 'DOGE') return `${URL.BlockCypher.webURL()}/doge/tx/${hash}`
+    return `${URL.BlockChainInfo.webURL()}/en/btc/tx/${hash}`
   }
 
   get textViewDetail() {
     if (this.symbol === 'BTC') {
       return constant.TEXT_VIEW_DETAIL_BTC
     }
-    return constant.TEXT_VIEW_DETAIL_ETH
+    return constant.TEXT_VIEW_DETAIL
   }
 
   get jsCode() {
@@ -129,7 +128,13 @@ export default class TransactionBTCDetailScreen extends Component {
   }
 
   _onMorePress = () => {
-    NavStore.pushToScreen('TransactionMoreDetailScreen')
+    if (this.selectedTransaction.walletType === 'bitcoin') {
+      NavStore.pushToScreen('TransactionMoreDetailScreen')
+    } else if (this.selectedTransaction.walletType === 'litecoin') {
+      NavStore.pushToScreen('TransactionMoreDetailLTCScreen')
+    } else if (this.selectedTransaction.walletType === 'dogecoin') {
+      NavStore.pushToScreen('TransactionMoreDetailLTCScreen')
+    }
   }
 
   renderValue = () => {
@@ -202,7 +207,7 @@ export default class TransactionBTCDetailScreen extends Component {
       <TransactionDetailItem
         style={{ marginTop: 15 }}
         data={{
-          title: 'Estimate Fee',
+          title: 'Fee',
           subtitle: this.selectedTransaction.feeFormat
         }}
         action={() => { this._onPress(this.selectedTransaction.fee.toString(10), 'Fee') }}
