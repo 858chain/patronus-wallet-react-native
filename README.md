@@ -7,7 +7,10 @@
 - [x] Check balances, transactions
 - [x] Send/Receive ETH and ERC20 Token
 - [x] Tracking your balance with Notification.
+- [x] ĐAPP web browser and list collectible items.
+
 ## Build Patronus Wallet 
+
 ### Installation
 Install `rn-nodeify` to be able to use Node.js libs.
 	
