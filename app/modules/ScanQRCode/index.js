@@ -124,7 +124,7 @@ export default class ScanQRCodeScreen extends Component {
             }
           }
         ],
-        '"Golden" needs permission to access your device’s camera to scan QRCode. Please go to Setting > Golden > Turn on Camera'
+        '"Patronus" needs permission to access your device’s camera to scan QRCode. Please go to Setting > Golden > Turn on Camera'
       )
     }
   }
@@ -170,7 +170,7 @@ export default class ScanQRCodeScreen extends Component {
             }
           }
         ],
-        '"Golden" needs permission to access your photo library to select a photo. Please go to Setting > Golden > Photo > choose Read and Write'
+        '"Patronus" needs permission to access your photo library to select a photo. Please go to Setting > Golden > Photo > choose Read and Write'
       )
     }
   }

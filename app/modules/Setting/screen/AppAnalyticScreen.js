@@ -18,7 +18,7 @@ import MainStore from '../../../AppStores/MainStore'
 import LayoutUtils from '../../../commons/LayoutUtils'
 
 const { width } = Dimensions.get('window')
-const content = 'Help Golden improve by choosing to share app activity and daily diagnostic. You can change your decision later in Settings.'
+const content = 'Help Patronus improve by choosing to share app activity and daily diagnostic. You can change your decision later in Settings.'
 const marginTop = LayoutUtils.getExtraTopAndroid()
 
 export default class AppAnalyticScreen extends Component {

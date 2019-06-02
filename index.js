@@ -45,4 +45,4 @@ import App from './App'
 // })
 console.ignoredYellowBox = ['Warning: isMounted','Remote debugger','Require cycle']
 global.XMLHttpRequest = global.originalXMLHttpRequest || global.XMLHttpRequest
-AppRegistry.registerComponent('golden', () => App)
+AppRegistry.registerComponent('patronus', () => App)

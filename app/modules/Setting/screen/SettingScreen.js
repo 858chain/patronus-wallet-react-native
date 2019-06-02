@@ -168,10 +168,10 @@ export default class SettingScreen extends Component {
             mainText="Address Book"
             onPress={this.onAddressBookPress}
           />
-          {this.renderCommunity()}
+          {/*{this.renderCommunity()}*/}
           {this.renderSecurity()}
           {this.renderAppSetting()}
-          {this.renderAbount()}
+          {/*{this.renderAbount()}*/}
         </View>
       </ScrollView >
     )

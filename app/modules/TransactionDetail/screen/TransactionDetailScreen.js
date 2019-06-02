@@ -50,7 +50,7 @@ export default class TransactionDetailScreen extends Component {
   onShareLink = () => {
     NavStore.preventOpenUnlockScreen = true
     const shareOptions = {
-      title: 'Golden',
+      title: 'Patronus',
       message: 'My Etherscan link',
       url: this.checkURL
     }

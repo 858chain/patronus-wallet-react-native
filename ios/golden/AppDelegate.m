@@ -22,7 +22,7 @@
 {
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
-                                                   moduleName:@"golden"
+                                                   moduleName:@"patronus"
                                             initialProperties:nil];
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
@@ -44,10 +44,10 @@
 -(void)spotlightSearch{
 
   CSSearchableItemAttributeSet *searchableItemAttributeSet = [[CSSearchableItemAttributeSet alloc] initWithItemContentType:@"io.goldenwallet"];
-  searchableItemAttributeSet.contentDescription = @"Golden";
-  searchableItemAttributeSet.title = @"Golden";
-  searchableItemAttributeSet.displayName = @"Golden";
-  searchableItemAttributeSet.keywords = @[@"wallet", @"ethereum", @"golden wallet ", @"bitcoin", @"golden", @"crypto"];
+  searchableItemAttributeSet.contentDescription = @"Patronus";
+  searchableItemAttributeSet.title = @"Patronus";
+  searchableItemAttributeSet.displayName = @"Patronus";
+  searchableItemAttributeSet.keywords = @[@"wallet", @"ethereum", @"patronus wallet ", @"bitcoin", @"patronus", @"crypto"];
   //    UIImage *thumbnail = [UIImage imageNamed:@"starwars_icon"];
   //    searchableItemAttributeSet.thumbnailData = UIImageJPEGRepresentation(thumbnail, 0.7);
 

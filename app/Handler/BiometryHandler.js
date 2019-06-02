@@ -11,7 +11,7 @@ const optionalConfigObject = {
 
 export default class BiometryHandler {
   static show(onSuccess) {
-    TouchID.authenticate('Unlock your Golden', optionalConfigObject)
+    TouchID.authenticate('Unlock your Patronus', optionalConfigObject)
       .then((success) => {
         onSuccess()
       })

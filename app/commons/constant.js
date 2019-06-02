@@ -43,7 +43,7 @@ export default {
   SAVE: 'Save',
   IMPORT: 'Photos',
   PASTE_ADDRESS: 'Paste Address',
-  titleRatingApp: 'Enjoying Golden',
+  titleRatingApp: 'Enjoying Patronus',
   desRatingApp: 'Rate us on the Google Play',
   ratingLater: 'Ask me later',
   cancel: 'Cancel',

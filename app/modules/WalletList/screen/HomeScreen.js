@@ -183,7 +183,7 @@ export default class HomeScreen extends Component {
     NavStore.preventOpenUnlockScreen = true
     RNFS.readFile(filePath, 'base64').then((file) => {
       const shareOptions = {
-        title: 'Golden',
+        title: 'Patronus',
         message: `My address: ${MainStore.appState.selectedWallet.address}`,
         url: `data:image/png;base64,${file}`
       }
@@ -210,7 +210,7 @@ export default class HomeScreen extends Component {
           }
         }
       ],
-      `Use your ${this.biometryType} for faster, easier access to Golden Wallet`
+      `Use your ${this.biometryType} for faster, easier access to Patronus Wallet`
     )
   }
 

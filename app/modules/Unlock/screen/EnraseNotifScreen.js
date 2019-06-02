@@ -18,7 +18,7 @@ import { opensansRegular } from '../../../commons/commonStyles'
 const { height } = Dimensions.get('window')
 const marginTop = LayoutUtils.getExtraTop()
 const mainText = 'Your data is deleted!'
-const subText = 'Someone has kept guessing your PIN to unauthorized access to your wallet. To ensure the safety of your funds, we have destroyed all data on Golden. Now create a new PIN Code to continue using.'
+const subText = 'Someone has kept guessing your PIN to unauthorized access to your wallet. To ensure the safety of your funds, we have destroyed all data on Patronus. Now create a new PIN Code to continue using.'
 
 export default class EnraseNotifScreen extends Component {
   goBack = () => {

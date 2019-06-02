@@ -13,7 +13,7 @@ import AppStyle from '../../../commons/AppStyle'
 import UnlockStore from '../UnlockStore'
 
 const title = 'PIN Code is disabled'
-const attention = 'Erase all your data on Golden after 10 failed PIN Code attempts'
+const attention = 'Erase all your data on Patronus after 10 failed PIN Code attempts'
 
 const { width, height } = Dimensions.get('window')
 const extraBottom = Platform.OS === 'ios' ? 0 : 48
