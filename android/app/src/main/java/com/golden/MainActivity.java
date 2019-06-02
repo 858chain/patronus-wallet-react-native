@@ -10,7 +10,6 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.crashlytics.android.Crashlytics;
-import com.evollu.react.fcm.BundleJSONConverter;
 import com.facebook.react.ReactActivity;
 
 import org.devio.rn.splashscreen.SplashScreen;
@@ -25,7 +24,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "golden";
+        return "patronus";
     }
 
     @Override

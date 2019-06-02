@@ -1,10 +1,8 @@
 rootProject.name = 'golden'
-include ':react-native-webview-bridge-updated'
-project(':react-native-webview-bridge-updated').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-webview-bridge-updated/android')
+include ':react-native-gesture-handler'
+project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
 include ':react-native-mixpanel'
 project(':react-native-mixpanel').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-mixpanel/android')
-include ':react-native-branch'
-project(':react-native-branch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-branch/android')
 include ':react-native-view-shot'
 project(':react-native-view-shot').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-view-shot/android')
 include ':react-native-share'
@@ -25,8 +23,6 @@ include ':react-native-haptic-feedback'
 project(':react-native-haptic-feedback').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-haptic-feedback/android')
 include ':react-native-fs'
 project(':react-native-fs').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fs/android')
-include ':react-native-fcm'
-project(':react-native-fcm').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fcm/android')
 include ':react-native-fabric'
 project(':react-native-fabric').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fabric/android')
 include ':react-native-device-info'
@@ -37,8 +33,6 @@ include ':react-native-qrcode-local-image'
 project(':react-native-qrcode-local-image').projectDir = new File(rootProject.projectDir, '../Libs/react-native-qrcode-local-image/android')
 include ':react-native-golden-keystore'
 project(':react-native-golden-keystore').projectDir = new File(rootProject.projectDir, '../Libs/react-native-golden-keystore/android')
-include ':rn-golden-loading'
-project(':rn-golden-loading').projectDir = new File(rootProject.projectDir, '../Libs/rn-golden-loading/android')
 include ':react-native-check-notification-enable', ':app'
 project(':react-native-check-notification-enable').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-check-notification-enable/android')
 include ':app'

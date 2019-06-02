@@ -1,4 +1,4 @@
-# Golden Wallet - Ethereum Wallet & ERC20 Tokens
+#   Patronus Wallet - Ethereum Wallet & ERC20 Tokens
 [<img src="https://raw.githubusercontent.com/goldennetwork/golden-wallet-react-native/master/screen-shots/Golden-Wallet.png">](https://itunes.apple.com/us/app/golden-best-wallet-ever/id1399824799)
 
 ## Features
@@ -9,7 +9,8 @@
 - [x] Tracking your balance with Notification.
 - [x] ĐAPP web browser and list collectible items.
 
-## Build Golden Wallet 
+## Build Patronus Wallet 
+
 ### Installation
 Install `rn-nodeify` to be able to use Node.js libs.
 	
@@ -28,13 +29,11 @@ Run from your terminal to install the library.
 	pod install
 	cd ../
 	
-Run Golden on iOS
+Run Patronus on iOS
 	
 	react-native run-ios
 
 #### Android
-Run Golden on Android
+Run Patronus on Android
 
 	react-native run-android
-
-[![button](http://liquidico.com/media/content/ckeditor/2018/02/28/g1_l9SmamB.png)](https://t.me/goldenwallet)

@@ -69,5 +69,6 @@ output.json
 LoginPageTest.js
 LoginPageTest.js.snap
 FoodStore.test.js
-package-lock.json
-yarn.lock
+
+# Bundle artifact
+*.jsbundle

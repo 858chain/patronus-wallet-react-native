@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 
+#import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <Fabric/Fabric.h>
@@ -19,14 +20,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  NSURL *jsCodeLocation;
+  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
+                                                   moduleName:@"patronus"
+                                            initialProperties:nil];
 
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"golden"
-                                               initialProperties:nil
-                                                   launchOptions:launchOptions];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -46,10 +44,10 @@
 -(void)spotlightSearch{
 
   CSSearchableItemAttributeSet *searchableItemAttributeSet = [[CSSearchableItemAttributeSet alloc] initWithItemContentType:@"io.goldenwallet"];
-  searchableItemAttributeSet.contentDescription = @"Golden";
-  searchableItemAttributeSet.title = @"Golden";
-  searchableItemAttributeSet.displayName = @"Golden";
-  searchableItemAttributeSet.keywords = @[@"wallet", @"ethereum", @"golden wallet ", @"bitcoin", @"golden", @"crypto"];
+  searchableItemAttributeSet.contentDescription = @"Patronus";
+  searchableItemAttributeSet.title = @"Patronus";
+  searchableItemAttributeSet.displayName = @"Patronus";
+  searchableItemAttributeSet.keywords = @[@"wallet", @"ethereum", @"patronus wallet ", @"bitcoin", @"patronus", @"crypto"];
   //    UIImage *thumbnail = [UIImage imageNamed:@"starwars_icon"];
   //    searchableItemAttributeSet.thumbnailData = UIImageJPEGRepresentation(thumbnail, 0.7);
 
@@ -88,4 +86,14 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler{
   [RNFIRMessaging didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
 }
+
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+{
+#if DEBUG
+  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+#else
+  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+#endif
+}
+
 @end

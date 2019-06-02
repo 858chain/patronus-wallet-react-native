@@ -25,8 +25,6 @@ import NotificationStore from './app/AppStores/stores/Notification'
 import PushNotificationHelper from './app/commons/PushNotificationHelper'
 import AppStyle from './app/commons/AppStyle'
 
-console.ignoredYellowBox = ['Warning: isMounted']
-
 export default class App extends Component {
   async componentWillMount() {
     await MainStore.startApp()

@@ -1,4 +1,4 @@
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import CreateWalletScreen from '../modules/WalletCreate/screen/CreateWalletScreen'
 import ImportViaAddressScreen from '../modules/WalletImport/screen/ImportViaAddressScreen'
 import ImportViaMnemonicScreen from '../modules/WalletImport/screen/ImportViaMnemonicScreen'
@@ -14,7 +14,7 @@ import EnterNameViaPrivateKey from '../modules/WalletImport/screen/EnterNameViaP
 import EnterNameViaAddress from '../modules/WalletImport/screen/EnterNameViaAddress'
 import EnterNameScreen from '../modules/WalletCreate/screen/EnterNameScreen'
 
-const CreateWalletStack = StackNavigator(
+const CreateWalletStack = createStackNavigator(
   {
     CreateWalletScreen: {
       screen: CreateWalletScreen,

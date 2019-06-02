@@ -1,4 +1,4 @@
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import HomeScreen from '../modules/WalletList/screen/HomeScreen'
 import NetworkScreen from '../modules/Setting/screen/NetworkScreen'
 import UnlockPincode from '../modules/ChangePincode/screen/UnlockPincode'
@@ -29,7 +29,7 @@ import AppStyle from '../commons/AppStyle'
 import TransactionMoreDetailScreen from '../modules/TransactionDetail/screen/TransactionMoreDetailScreen'
 import TransactionMoreDetailLTCScreen from '../modules/TransactionDetail/screen/TransactionMoreDetailLTCScreen'
 
-const HomeStack = StackNavigator(
+const HomeStack = createStackNavigator(
   {
     HomeScreen: {
       screen: HomeScreen,

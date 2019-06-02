@@ -1,10 +1,10 @@
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import BackupFirstStepScreen from '../modules/WalletBackup/screen/BackupFirstStepScreen'
 import BackupSecondStepScreen from '../modules/WalletBackup/screen/BackupSecondStepScreen'
 import BackupThirdStepScreen from '../modules/WalletBackup/screen/BackupThirdStepScreen'
 import AppStyle from '../commons/AppStyle'
 
-const BackupStack = StackNavigator(
+const BackupStack = createStackNavigator(
   {
     BackupFirstStepScreen: {
       screen: BackupFirstStepScreen,

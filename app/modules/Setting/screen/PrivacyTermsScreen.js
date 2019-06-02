@@ -18,7 +18,7 @@ import AppStyle from '../../../commons/AppStyle'
 
 const marginTop = LayoutUtils.getExtraTop()
 const { width } = Dimensions.get('window')
-const contentDailyUsage = 'Help Golden improve user experience by sharing app daily diagnostic.'
+const contentDailyUsage = 'Help Patronus improve user experience by sharing app daily diagnostic.'
 
 @observer
 export default class PrivacyTermsScreen extends Component {

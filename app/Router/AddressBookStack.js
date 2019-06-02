@@ -1,10 +1,10 @@
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import AddressBookScreen from '../modules/AddressBook/screen/AddressBookScreen'
 import AddAddressBookScreen from '../modules/AddressBook/screen/AddAddressBookScreen'
 import ScanQRCodeScreen from '../modules/ScanQRCode'
 import AppStyle from '../commons/AppStyle'
 
-const AddressBookStack = StackNavigator(
+const AddressBookStack = createStackNavigator(
   {
     AddressBookScreen: {
       screen: AddressBookScreen,

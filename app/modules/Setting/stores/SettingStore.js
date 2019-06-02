@@ -58,7 +58,7 @@ export default class SettingStore {
     //   iconRight: false
     // },
     {
-      mainText: `Rate Golden on ${store}`,
+      mainText: `Rate Patronus on ${store}`,
       onPress: () => { this.showPopupRating() },
       iconRight: false
     },

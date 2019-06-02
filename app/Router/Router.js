@@ -1,4 +1,4 @@
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import HomeStack from './HomeStack'
 import UnlockScreen from '../modules/Unlock/screen/UnlockScreen'
 import CreateSendTransactionStack from './CreateSendTransactionStack'
@@ -13,7 +13,7 @@ import DAppBrowserStack from './DAppBrowserStack'
 import AppStyle from '../commons/AppStyle'
 import AppAnalyticScreen from '../modules/Setting/screen/AppAnalyticScreen'
 
-const Router = StackNavigator(
+const Router = createStackNavigator(
   {
     HomeStack: {
       screen: HomeStack,

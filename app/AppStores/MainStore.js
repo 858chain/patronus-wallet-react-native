@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx'
 import AppDS from './DataSource/AppDS'
 import appState from './AppState'
-import PushNotificationHelper from '../commons/PushNotificationHelper'
+// import PushNotificationHelper from '../commons/PushNotificationHelper'
 
 // do not allow change state outside action function
 // configure({ enforceActions: true })
@@ -25,7 +25,7 @@ class MainStore {
   // Start
   @action async startApp() {
     await AppDS.readAppData()
-    await PushNotificationHelper.init()
+    // await PushNotificationHelper.init()
     appState.syncWalletAddresses()
     appState.initMixpanel()
     appState.startAllServices()

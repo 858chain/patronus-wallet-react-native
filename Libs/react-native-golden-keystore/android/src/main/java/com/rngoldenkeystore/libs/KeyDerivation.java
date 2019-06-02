@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import android.os.Build;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
@@ -43,7 +44,12 @@ public class KeyDerivation {
 
     public static KeyDerivation createFromSeed(byte[] seed) {
         try {
-            Mac mac = Mac.getInstance("HmacSHA512", "BC");
+            Mac mac;
+            if (Build.VERSION.SDK_INT >= 28) {
+                mac = Mac.getInstance("HmacSHA512");
+            } else {
+                mac = Mac.getInstance("HmacSHA512", "BC");
+            }
             SecretKey seedKey = new SecretKeySpec(BITCOIN_SEED, "HmacSHA512");
             mac.init(seedKey);
             byte[] lr = mac.doFinal(seed);
@@ -142,7 +148,12 @@ public class KeyDerivation {
                 extended[pub.length + 3] = (byte) (index & 0xff);
             }
 
-            Mac mac = Mac.getInstance ("HmacSHA512", "BC");
+            Mac mac;
+            if (Build.VERSION.SDK_INT >= 28) {
+                mac = Mac.getInstance("HmacSHA512");
+            } else {
+                mac = Mac.getInstance("HmacSHA512", "BC");
+            }
             SecretKey key = new SecretKeySpec (this.chainCode, "HmacSHA512");
             mac.init (key);
 

@@ -1,11 +1,11 @@
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import SendTransactionScreen from '../modules/SendTransaction/screen/SendTransactionScreen'
 import AddressInputScreen from '../modules/SendTransaction/screen/AddressInputScreen'
 import ScanQRCodeScreen from '../modules/ScanQRCode'
 import ConfirmScreen from '../modules/SendTransaction/screen/ConfirmScreen'
 import AppStyle from '../commons/AppStyle'
 
-const CreateSendTransactionStack = StackNavigator(
+const CreateSendTransactionStack = createStackNavigator(
   {
     SendTransactionScreen1: {
       screen: SendTransactionScreen,
